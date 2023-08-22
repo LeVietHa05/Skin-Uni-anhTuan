@@ -1,0 +1,40 @@
+                        <div id="sideContent">
+                    <div id="aboutSection">
+                        <h3 class="caption">About</h3>
+                        <p>This page is dedicated to provide information about some of the most common skin lesions.</p>
+                    </div>
+                    <div id="recents">
+                        <h3 class="caption">Recents</h3>
+                        <hr style="width:100%">
+                        <div id="recentDisplay">
+                        <% for (let i = lesionList.length-1; i >= lesionList.length-3; i--) { %>
+                        <a class="recentLink" href="<%= "/info/" + lesionList[i].name.toLowerCase().split(" ").join("_") %>">
+                            <div class="recentDiv">
+                                <img class="recentImg" src="<%= lesionList[i].image %>">
+                                <div>
+                                    <h3 class="smallCaption"><%=lesionList[i].name%></h3>
+                                    <p class="lesionDescription"><%=lesionList[i].description%></p>
+                                </div>
+                            </div>
+                        </a>
+                        <% } %>
+                        </div>
+                        <hr style="width:100%">
+                    </div>    
+                </div>
+            </div>
+        </div>
+        <div id="footer">
+            
+            <!-- <div style="border: dashed 1px #495057; width:20%; margin:auto; margin-top:30px; margin-bottom: 20px;"></div> -->
+            <div id="contactInfo">
+                <h6>Nguyen Ngo Anh Tuan  <span style="font-weight: normal;">@2023</span></h6>
+                <p style="flex:10">Please contact at:</p>
+                <div id="info">
+                    <p>✉: <span style="font-weight: bold;">nnat150406@gmail.com</span></p>
+                    <p>☏: <span style="font-weight: bold;">(+84) 97 207 3092</span></p>
+                </div>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href='https://fonts.googleapis.com/css?family=Inter' rel='stylesheet'>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+    <link rel="stylesheet" href="/styles/index.css">
+</head>
+
+<body>
+    <nav>
+        <div class="logoContainer text-color">
+            <img id="logo" src="/images/logo.png">
+            <a href="/">
+                <h2 id="webName">Skin Uni</h2>
+            </a>
+        </div>
+        <div id="navBar">
+            <a href="/info" class="nav">
+                Information
+            </a>
+            <a href="#" class="nav">
+                Analysis
+            </a>
+            <a href="#" class="nav">
+                About
+            </a>
+        </div>
+    </nav>
+    <div class = "hero">
+        <div class="hero-text">
+            <h1>Introduction to <span class="primary-color">Skin</span> Diseases.</h1>
+            <p class="text">A skin lesion refers to any skin area that has different characteristics
+                from the surrounding skin, including color, shape, size, and texture. Skin lesions are very common
+                and often appear as a result of a localized damage to the skin, like sunburns or contact dermatitis.
+            </p>
+            <div class="hero-cta">
+                <a href="/info/skin_lesion" class="primary-button" style="color: var(--bg);">Continue Reading</a>
+            </div>
+            <div class="hero-scroll">
+                <svg width="23" height="33" viewBox="0 0 23 33" fill="none">
+                    <rect x="0.767442" y="0.767442" width="20.7209" height="31.4651" rx="10.3605" stroke="var(--text)" stroke-width="1.53488"></rect>
+                    <rect x="9" y="8" width="4" height="8" rx="2" fill="var(--text)"></rect>
+                </svg>
+                <p class="sub">Scroll to see more sections</p>
+            </div>
+        </div>
+        <div class="hero-img">
+            <img src = "images/hero-img.jpg" style="width:100%">
+        </div>
+    </div>
+    <div class="grid">
+        <div class="grid-left">
+            <div class="box primary-color-box">
+                <h3>Featured</h3>
+                <hr>
+                <h1 class="background-color">Melanoma</h1>
+                <p class="background-color">Melanoma, the most serious type of skin cancer, develops in the cells (melanocytes) that
+                    produce melanin — the pigment that gives your skin its color. Melanoma can also form in your eyes
+                    and, rarely, inside your body, such as in your nose or throat.</p>
+                <p class="background-color">The exact cause of all melanomas isn't clear, but exposure to ultraviolet (UV) radiation
+                    from sunlight or tanning lamps and beds increases your risk of developing melanoma. Limiting your
+                    exposure to UV radiation can help reduce your risk of melanoma.</p>
+                <p class="background-color">The risk of melanoma seems to be increasing in people under 40, especially women. Knowing the warning signs of skin cancer can help ensure that cancerous changes are detected and treated before the cancer has spread. Melanoma can be treated successfully if it is detected early.</p>
+                <div class="center-button">
+                    <a href="/info/melanoma" class="secondary-button" style="color: var(--bg);">See Original Page</a>
+                </div>
+            </div>
+        </div>
+        <div class = "grid-right">
+            <div class="box secondary-color-box">
+                <h3 class="text-color">About</h3>
+                <p class="text-color">This page is dedicated to provide information about some of the most common skin lesions.</p>
+            </div>
+            <div class="box accent-color-box background-color">
+                <h3 class="background-color">Recents</h3>    
+                <hr style="width:100%">
+                <div class="recents">
+                    <% for (let i=lesionList.length-1; i>= lesionList.length-3; i--) { %>
+                    <div class="link">
+                    <a href="<%= " /info/" + lesionList[i].name.toLowerCase().split(" ").join("_") %>" >
+                        <h3 class="bold small">
+                            <%=lesionList[i].name%>
+                        </h3>
+                        <p class="lesionDescription" >
+                            <%=lesionList[i].description%>
+                        </p>
+                    </a>
+                    </div>
+                    <% } %>
+                </div>
+                <hr style="width:100%">
+            </div>
+        </div>
+    </div>
+    <footer class="text-color">
+        <div class="info">
+            <div class="logoContainer">
+                <img id="logo" src="/images/logo.png">
+                <a href="/">
+                    <h2>Skin Uni</h2>
+                </a>
+            </div>
+            <div class="horizontal-menu">
+                <p class="menu-header sub">EXPLORE</p>
+                <a href="/info" class="menu-item">
+                    Information
+                </a>
+                <a href="#" class="menu-item">
+                    Analysis
+                </a>
+                <a href="#" class="menu-item">
+                    About
+                </a>
+            </div>
+            <div class="horizontal-menu">
+                <p class="menu-header sub">CONNECT</p>
+                <a href="https://github.com/Antonton154" class="menu-item">
+                    Github
+                </a>
+            </div>
+        </div>
+        <hr>
+        <div>
+            <p class="sub">Feedback? Suggestions? <a href="mailto:nnat150406@gmail.com" target="_blank" class="link reversed">Contact me!</a></p>
+            <p class="sub">Made with by Nguyen Ngo Anh Tuan</p>
+            <p class="sub">Copyright © 2023 All Rights Reserved</p>
+        </div>
+    </footer>
+</body>
+</html>

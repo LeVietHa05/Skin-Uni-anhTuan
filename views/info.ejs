@@ -1,0 +1,34 @@
+<%- include ("partials/header.ejs") %>
+<script>document.title = "Information"</script>
+    <div id="homeContent">
+        <div id="content">
+            <div class="wholeContainer">
+                <% for (let i = lesionList.length-1; i >= 0; i--) { %>
+                    <a href="<%= "/info/" + lesionList[i].name.toLowerCase().split(" ").join("_") %>">
+                        <div class="card" style="width: 14.6rem;">
+                            <img src="<%= lesionList[i].image %>" class="card-img-top recentImg" style="width:100%; height: 60%; border-radius: 30px;" alt="Image of <%= lesionList[i].name %>">
+                            <div class="card-body">
+                                <h5 class="card-title"><%= lesionList[i].name %></h5>
+                                <p class="card-text lesionDescription"><%= lesionList[i].description %></p>
+                            </div>
+                        </div>
+                    </a>
+                    <% } %>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="footer">
+
+    <!-- <div style="border: dashed 1px #495057; width:20%; margin:auto; margin-top:30px; margin-bottom: 20px;"></div> -->
+    <div id="contactInfo">
+        <h6>Nguyen Ngo Anh Tuan  <span style="font-weight: normal;">@2023</span></h6>
+        <p style="flex:10">Please contact at:</p>
+        <div id="info">
+            <p>✉: <span style="font-weight: bold;">nnat150406@gmail.com</span></p>
+            <p>☏: <span style="font-weight: bold;">(+84) 97 207 3092</span></p>
+        </div>
+    </div>
+</div>
+</body>
+</html>
