@@ -1,0 +1,77 @@
+<%- include ("partials/header.ejs") %>
+  <script>document.title = "Add"</script>
+  <div>
+    <h1>Add Disease</h1>
+
+    <form action="/add" method="POST">
+      <label for="name">Name:</label>
+      <input type="text" id="name" name="name" required><br>
+
+      <label for="image">Image URL:</label>
+      <input type="text" id="image" name="image" required><br>
+
+      <label for="description">Description:</label><br>
+      <textarea id="description" name="description" rows="4" cols="50" required></textarea><br>
+
+      <button type="button" id="addLineBreak">Add Line Break</button>
+      <button type="button" id="addImage">Add Image Placeholder</button>
+      <button type="button" id="addSymptoms">Add Symptoms Placeholder</button>
+      <button type="button" id="addTreatments">Add Treatments Placeholder</button>
+      <button type="button" id="bold">Bold</button>
+
+      <br>
+
+      <label for="symptoms">Symptoms (/-separated):</label><br>
+      <textarea type="text" id="symptoms" name="symptoms" rows="4" cols="50" required></textarea><br>
+
+      <label for="treatments">Treatments (/-separated):</label><br>
+      <textarea type="text" id="treatments" name="treatments" rows="4" cols="50" required></textarea><br>
+
+      <label for="cite">Cite:</label>
+      <input type="text" id="cite" name="cite" required><br>
+
+      <button type="submit">Submit</button>
+    </form>
+  </div>
+  </div>
+  <script>
+    const descriptionTextarea = document.getElementById('description');
+    const addLineBreak = document.getElementById('addLineBreak');
+    const addImage = document.getElementById('addImage');
+    const addSymptoms = document.getElementById('addSymptoms');
+    const addTreatments = document.getElementById('addTreatments');
+    const bold = document.getElementById('bold');
+
+    addLineBreak.addEventListener('click', () => {
+      insertTextAtCursor(descriptionTextarea, "<br>");
+    });
+    addImage.addEventListener('click', () => {
+      insertTextAtCursor(descriptionTextarea, "%%IMAGE%%");
+    });
+
+    addSymptoms.addEventListener('click', () => {
+      insertTextAtCursor(descriptionTextarea, "%%SYMPTOMS%%");
+    });
+
+    addTreatments.addEventListener('click', () => {
+      insertTextAtCursor(descriptionTextarea, "%%TREATMENTS%%");
+    });
+    bold.addEventListener('click', () => {
+      insertTextAtCursor(descriptionTextarea, "<span class='h3 bold'></span>");
+    });
+
+    function insertTextAtCursor(textarea, text) {
+      const startPos = textarea.selectionStart;
+      const endPos = textarea.selectionEnd;
+
+      const currentValue = textarea.value;
+      const newText = currentValue.substring(0, startPos) + text + currentValue.substring(endPos);
+
+      textarea.value = newText;
+      textarea.selectionStart = startPos + text.length;
+      textarea.selectionEnd = startPos + text.length;
+    }
+  </script>
+  </body>
+
+  </html>

@@ -1,40 +1,65 @@
-                        <div id="sideContent">
-                    <div id="aboutSection">
-                        <h3 class="caption">About</h3>
-                        <p>This page is dedicated to provide information about some of the most common skin lesions.</p>
-                    </div>
-                    <div id="recents">
-                        <h3 class="caption">Recents</h3>
-                        <hr style="width:100%">
-                        <div id="recentDisplay">
-                        <% for (let i = lesionList.length-1; i >= lesionList.length-3; i--) { %>
-                        <a class="recentLink" href="<%= "/info/" + lesionList[i].name.toLowerCase().split(" ").join("_") %>">
-                            <div class="recentDiv">
-                                <img class="recentImg" src="<%= lesionList[i].image %>">
-                                <div>
-                                    <h3 class="smallCaption"><%=lesionList[i].name%></h3>
-                                    <p class="lesionDescription"><%=lesionList[i].description%></p>
-                                </div>
-                            </div>
-                        </a>
-                        <% } %>
-                        </div>
-                        <hr style="width:100%">
-                    </div>    
-                </div>
-            </div>
+
+<div class="box">
+    <h3 class="text-color">Recents</h3>
+    <hr style="width:100%">
+    <div class="recent-box">
+        <% for (let i=lesionList.length-1; i>= lesionList.length-3; i--) { %>
+            <a class="card" href="<%= lesionList[i].name.toLowerCase().split(" ").join("_") %>">
+                    <img src="<%= lesionList[i].image %>"
+                        style="width:100%; height: 60%; border-radius: 30px;" alt="Image of <%= lesionList[i].name %>">
+                    <h3 class="bold">
+                        <%= lesionList[i].name %>
+                    </h3>
+                    <p class="lesionDescription">
+                        <%= lesionList[i].description %>
+                    </p>
+            </a>
+        <% } %>
+    </div>
+</div>
+<div class="hero-cta">
+    <a onclick="topFunction()" class="primary-button" style="color: var(--bg);">Scroll to Top</a>
+</div>
+<footer class="text-color">
+    <div class="info">
+        <div class="logoContainer">
+            <img id="logo" src="/images/logo.png">
+            <a href="/">
+                <h2>Skin Uni</h2>
+            </a>
         </div>
-        <div id="footer">
-            
-            <!-- <div style="border: dashed 1px #495057; width:20%; margin:auto; margin-top:30px; margin-bottom: 20px;"></div> -->
-            <div id="contactInfo">
-                <h6>Nguyen Ngo Anh Tuan  <span style="font-weight: normal;">@2023</span></h6>
-                <p style="flex:10">Please contact at:</p>
-                <div id="info">
-                    <p>✉: <span style="font-weight: bold;">nnat150406@gmail.com</span></p>
-                    <p>☏: <span style="font-weight: bold;">(+84) 97 207 3092</span></p>
-                </div>
+        <div class="horizontal-menu">
+            <p class="menu-header sub">EXPLORE</p>
+            <a href="/info" class="menu-item">
+                Information
+            </a>
+            <a href="#" class="menu-item">
+                Analysis
+            </a>
+            <a href="#" class="menu-item">
+                About
+            </a>
+        </div>
+        <div class="horizontal-menu">
+            <p class="menu-header sub">CONNECT</p>
+            <a href="https://github.com/Antonton154" class="menu-item">
+                Github
+            </a>
         </div>
     </div>
+    <hr>
+    <div>
+        <p class="sub">Feedback? Suggestions? <a href="mailto:nnat150406@gmail.com" target="_blank"
+                class="link reversed">Contact me!</a></p>
+        <p class="sub">Made with by Nguyen Ngo Anh Tuan</p>
+        <p class="sub">Copyright © 2023 All Rights Reserved</p>
+    </div>
+</footer>
 </body>
+<script>
+function topFunction() {
+  document.body.scrollTop = 0; 
+  document.documentElement.scrollTop = 0;
+}
+</script>
 </html>

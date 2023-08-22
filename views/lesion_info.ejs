@@ -1,0 +1,39 @@
+<%- include ("partials/header.ejs") %>
+<script>document.title="<%= lesion.name %>"</script>
+<div class="text-color box" style="width:100%">
+    <h1>
+        <%= lesion.name %>
+    </h1>
+    <div class="description">
+        <%= replacePlaceholders(lesion.description, lesion.symptoms, lesion.treatments, lesion.image) %>
+    </div>
+</div>
+
+<%- include ("partials/footer.ejs") %>
+
+<% function generateList(items) { %>
+    <% let listHtml = '<ul>'; %>
+    <% items.forEach(item => { %>
+        <% listHtml += '<li>' + item + '</li>'; %>
+    <% }); %>
+    <% listHtml += '</ul>'; %>
+    <% return listHtml; %>
+<% } %>
+
+<% function generateImage(url) { %>
+    <% return '<div style="display:flex; justify-content:center; margin-top:20px"> <br> <img class="illustration" src="' + url + '" alt="Image of ' + lesion.name + '"> </div>'; %>
+<% } %>
+
+<% function replacePlaceholders(description, symptoms, treatments, image) { %>
+    <% const symptomsPlaceholder = '%%SYMPTOMS%%'; %>
+    <% const treatmentsPlaceholder = '%%TREATMENTS%%'; %>
+    <% const imagePlaceholder = '%%IMAGE%%'; %>
+            
+    <% const updatedDescription = description
+        .replace(symptomsPlaceholder, generateList(symptoms))
+        .replace(treatmentsPlaceholder, generateList(treatments))
+        .replace(imagePlaceholder, generateImage(image));
+    %>
+          
+    <%- updatedDescription.replace(/\n/g, '<br>') %>
+<% } %>
