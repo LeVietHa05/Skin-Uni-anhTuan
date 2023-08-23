@@ -542,6 +542,11 @@ footer {
         gap: 1em;
     }
 
+    .info {
+        grid-template-columns: 1fr;
+        gap:30px
+    }
+
     nav {
         flex-wrap: wrap;
         position: fixed;
