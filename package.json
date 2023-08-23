@@ -1,11 +1,13 @@
 {
-  "name": "airconditionproject",
+  "name": "SkinUni",
   "version": "1.0.0",
   "description": "",
   "main": "app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node app.js",
+  "build": "echo 'No build step required.'"
+},
   "author": "Nguyen Ngo Anh Tuan",
   "license": "ISC",
   "dependencies": {
