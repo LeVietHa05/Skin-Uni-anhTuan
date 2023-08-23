@@ -421,3 +421,35 @@ footer {
 .description {
     text-align: justify;
 }
+
+#logo {
+    width: 50px;
+    transform: rotate(0);
+}
+
+.logoContainer:hover >
+#logo {
+    transform: rotate(360deg);
+    transition: all ease-in-out 0.4s;
+}
+
+.logoface {
+    width: 50px;
+    transform: rotate(0);
+}
+
+.hero-img:hover {
+    transform: rotate(15deg) scale(1.2);
+    transition: all ease-in-out 0.4s;
+}
+
+.hero-img {
+    transform: rotate(0) scale(1);
+    transition: all ease-in-out 0.4s;
+}
+
+.color-effect {
+    background: linear-gradient(120deg, var(--primary), var(--accent));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
