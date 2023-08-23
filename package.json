@@ -4,10 +4,9 @@
   "description": "",
   "main": "app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node app.js",
-  "build": "echo 'No build step required.'"
-},
+    "start": "node app.js"
+  },
+
   "author": "Nguyen Ngo Anh Tuan",
   "license": "ISC",
   "dependencies": {

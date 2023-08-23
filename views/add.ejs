@@ -1,6 +1,6 @@
 <%- include ("partials/header.ejs") %>
   <script>document.title = "Add"</script>
-  <div>
+  <div style="padding-top:0; padding-bottom: 50px;">
     <h1>Add Disease</h1>
 
     <form action="/add" method="POST">
@@ -15,20 +15,22 @@
 
       <button type="button" id="addLineBreak">Add Line Break</button>
       <button type="button" id="addImage">Add Image Placeholder</button>
+      <button type="button" id="bold">Bold</button>
+      <br>
       <button type="button" id="addSymptoms">Add Symptoms Placeholder</button>
       <button type="button" id="addTreatments">Add Treatments Placeholder</button>
-      <button type="button" id="bold">Bold</button>
+      
 
       <br>
 
       <label for="symptoms">Symptoms (/-separated):</label><br>
-      <textarea type="text" id="symptoms" name="symptoms" rows="4" cols="50" required></textarea><br>
+      <textarea type="text" id="symptoms" name="symptoms" rows="2" cols="50"></textarea><br>
 
       <label for="treatments">Treatments (/-separated):</label><br>
-      <textarea type="text" id="treatments" name="treatments" rows="4" cols="50" required></textarea><br>
+      <textarea type="text" id="treatments" name="treatments" rows="2" cols="50"></textarea><br>
 
       <label for="cite">Cite:</label>
-      <input type="text" id="cite" name="cite" required><br>
+      <input type="text" id="cite" name="cite" required>
 
       <button type="submit">Submit</button>
     </form>

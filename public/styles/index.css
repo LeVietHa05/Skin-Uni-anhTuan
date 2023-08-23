@@ -342,6 +342,7 @@ hr {
 }
 
 .cite {
+    margin-top: 20px;
     font-weight: lighter;
 }
 
@@ -417,3 +418,6 @@ footer {
     gap: 30px;
 }
 
+.description {
+    text-align: justify;
+}

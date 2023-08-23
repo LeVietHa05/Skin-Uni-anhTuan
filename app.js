@@ -5,6 +5,7 @@ const path = require('path');
 const mongoose = require('mongoose');
 const Disease = require('./models/Disease');
 const app = express()
+const PORT = process.env.PORT || 3000;
 
 mongoose.connect('mongodb://127.0.0.1/skinuni')
 
@@ -84,11 +85,13 @@ app.get("*", function(req, res) {
     res.render("404.ejs")
 })
 
-app.listen(3000, async () => {
-  console.log("Server started (port 3000)")
+
+app.listen(PORT, async () => {
+  console.log(`Server started on port ${PORT}`);
   const names = await retrieveDiseaseNames();
   console.log('Disease names:', names);
-})
+});
+
 
 async function retrieveDiseaseNames() {
   try {
