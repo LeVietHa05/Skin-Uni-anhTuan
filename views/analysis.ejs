@@ -1,7 +1,7 @@
 <%- include ("partials/header.ejs") %>
 <script>document.title="<%= lesion.name %>"</script>
 <div class="text-color box" style="width:100%">
-
+    <div id="text"></div>
 </div>
 
 <%- include ("partials/footer.ejs") %>
@@ -12,7 +12,7 @@
     const socket = io();
 
     socket.on("web data", (environment) => {
-        
+        document.getElementById("text").textContent = environment.temperature;
     })
 </script>
 

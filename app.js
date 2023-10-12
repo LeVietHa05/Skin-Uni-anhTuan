@@ -110,6 +110,10 @@ app.post('/add', async (req, res) => {
     }
   });
 
+app.get("/analysis/", async function (req, res) {
+  res.render("analysis.ejs")
+})  
+
 app.get("*", function(req, res) {
     res.render("404.ejs")
 })
