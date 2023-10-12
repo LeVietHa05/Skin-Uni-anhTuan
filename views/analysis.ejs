@@ -1,0 +1,18 @@
+<%- include ("partials/header.ejs") %>
+<script>document.title="<%= lesion.name %>"</script>
+<div class="text-color box" style="width:100%">
+
+</div>
+
+<%- include ("partials/footer.ejs") %>
+
+
+<script src="/socket.io/socket.io.js"></script>
+<script>
+    const socket = io();
+
+    socket.on("web data", (environment) => {
+        
+    })
+</script>
+

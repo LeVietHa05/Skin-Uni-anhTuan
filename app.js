@@ -5,7 +5,35 @@ const path = require('path');
 const mongoose = require('mongoose');
 const Disease = require('./models/Disease');
 const app = express()
+const Environment = require('./models/Environment')
+const { createServer } = require('node:http');
+const { join } = require('node:path');
+const { Server } = require('socket.io');
 const PORT = process.env.PORT || 3000;
+
+const server = createServer(app);
+const io = new Server(server);  
+
+io.on('connection', (socket) => {
+  console.log('a user connected');
+  socket.on('hardware data', (msg) => {
+    const measurements = msg.split(" ")
+    const environment = new Environment({
+      temperature: measurements[0],
+      humidity: measurements[1],
+      uv: measurements[2],
+      uvi: measurements[3],
+      co: measurements[4],
+      gas: measurements[5],
+      dust: measurements[6],
+    })
+    socket.broadcast.emit('web data', environment);
+  });
+  socket.on('disconnect', () => {
+    console.log('user disconnected');
+
+  });
+});
 
 
 const atlasConnectionUrl = "mongodb+srv://nnatuan264826:JUt7vncgWGCwIAeL@skinuni.xmweuyz.mongodb.net/skinuni?retryWrites=true&w=majority"
