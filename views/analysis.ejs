@@ -1,18 +1,117 @@
 <%- include ("partials/header.ejs") %>
-<script>document.title="<%= lesion.name %>"</script>
-<div class="text-color box" style="width:100%">
-    <div id="text"></div>
-</div>
-
-<%- include ("partials/footer.ejs") %>
+    <script>document.title = "Analysis"</script>
 
 
-<script src="/socket.io/socket.io.js"></script>
-<script>
-    const socket = io();
+    <div style="width: 800px;">
+        <canvas id="tempChart"></canvas>
+    </div>
+    <div style="width: 800px;">
+        <canvas id="humChart"></canvas>
+    </div>
+    <div style="width: 800px;">
+        <canvas id="uvChart"></canvas>
+    </div>
+    <div style="width: 800px;">
+        <canvas id="gasChart"></canvas>
+    </div>
+    <div style="width: 800px;">
+        <canvas id="dustChart"></canvas>
+    </div>
 
-    socket.on("web data", (environment) => {
-        document.getElementById("text").textContent = environment.temperature;
-    })
-</script>
+    <div class="text-color box" style="width:100%">
+        <div id="text"></div>
+    </div>
 
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@3.9.1/dist/chart.min.js"></script>
+    <script>
+        function setBackgroundColor(id, color) {
+            document.getElementById(id).style.backgroundColor = color;
+        }
+        function configGenerator(type, label, color) {
+            return {
+                type: type,
+                data: {
+                    labels: [],
+                    datasets: [{
+                        label: label,
+                        data: [],
+                        backgroundColor: color,
+                        borderColor: color
+                    }]
+                },
+            }
+        }
+
+        let tempConfig = configGenerator('line', 'Temperature', 'rgb(255, 99, 132)');
+        let humConfig = configGenerator('line', 'Humidity', 'rgb(54, 162, 235)');
+        let uvConfig = configGenerator('line', 'Light', 'rgb(255, 205, 86)');
+        let gasConfig = configGenerator('line', 'Gas', 'rgb(75, 192, 192)');
+        let dustConfig = configGenerator('line', 'Dust', 'rgb(153, 102, 255)');
+
+        let tempChart = new Chart(
+            document.getElementById('tempChart'),
+            tempConfig
+        );
+        let humChart = new Chart(
+            document.getElementById('humChart'),
+            humConfig
+        );
+        let uvChart = new Chart(
+            document.getElementById('uvChart'),
+            uvConfig
+        );
+        let gasChart = new Chart(
+            document.getElementById('gasChart'),
+            gasConfig
+        );
+        let dustChart = new Chart(
+            document.getElementById('dustChart'),
+            dustConfig
+        );
+
+        setBackgroundColor("tempChart", "rgba(255, 99, 132, 0.2)");
+        setBackgroundColor("humChart", "rgba(54, 162, 235, 0.2)");
+        setBackgroundColor("uvChart", "rgba(255, 205, 86, 0.2)");
+        setBackgroundColor("gasChart", "rgba(75, 192, 192, 0.2)");
+        setBackgroundColor("dustChart", "rgba(153, 102, 255, 0.2)");
+
+    </script>
+
+    <script src="/socket.io/socket.io.js"></script>
+    <script>
+        const socket = io();
+        socket.on("connect", () => {
+            console.log("Connected to server");
+        });
+        socket.on("web data", (environment) => {
+            document.getElementById("text").textContent = environment.temperature;
+        })
+    </script>
+    <script>
+
+        setTimeout(function () {
+            fetch("/analysis/getData")
+                .then(response => response.json())
+                .then(data => {
+                    console.log(data);
+                    data.forEach(element => {
+                        tempChart.data.labels.push(element.time);
+                        tempChart.data.datasets[0].data.push(element.temperature);
+                        humChart.data.labels.push(element.time);
+                        humChart.data.datasets[0].data.push(element.humidity);
+                        uvChart.data.labels.push(element.time);
+                        uvChart.data.datasets[0].data.push(element.uv);
+                        gasChart.data.labels.push(element.time);
+                        gasChart.data.datasets[0].data.push(element.gas);
+                        dustChart.data.labels.push(element.time);
+                        dustChart.data.datasets[0].data.push(element.dust);
+                    });
+                    tempChart.update();
+                    humChart.update();
+                    uvChart.update();
+                    gasChart.update();
+                    dustChart.update();
+                })
+        }, 2000);
+    </script>
+    <%- include ("partials/footer.ejs") %>
