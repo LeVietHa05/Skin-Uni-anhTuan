@@ -135,7 +135,7 @@ app.get("/analysis/", async function (req, res) {
 app.get("/analysis/getData", async function (req, res) {
   try {
     const environment = await Environment.find({})
-      .sort({ time: -1 })
+      .sort({ time: 1 })
       .limit(20);
     res.json(environment);
   } catch (err) {
