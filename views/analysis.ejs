@@ -75,6 +75,22 @@
         setBackgroundColor("gasChart", "rgba(75, 192, 192, 0.2)");
         setBackgroundColor("dustChart", "rgba(153, 102, 255, 0.2)");
 
+        function addDataToChart(chart, label, newData) {
+            chart.data.labels.push(label);
+            chart.data.datasets.forEach((dataset) => {
+                dataset.data.push(newData);
+            });
+            chart.update();
+        }
+
+        function removeDataFromChart(chart) {
+            chart.data.labels.pop();
+            chart.data.datasets.forEach((dataset) => {
+                dataset.data.pop();
+            });
+            chart.update();
+        }
+
     </script>
 
     <script src="/socket.io/socket.io.js"></script>
@@ -95,22 +111,27 @@
                 .then(data => {
                     console.log(data);
                     data.forEach(element => {
-                        tempChart.data.labels.push(element.time);
-                        tempChart.data.datasets[0].data.push(element.temperature);
-                        humChart.data.labels.push(element.time);
-                        humChart.data.datasets[0].data.push(element.humidity);
-                        uvChart.data.labels.push(element.time);
-                        uvChart.data.datasets[0].data.push(element.uv);
-                        gasChart.data.labels.push(element.time);
-                        gasChart.data.datasets[0].data.push(element.gas);
-                        dustChart.data.labels.push(element.time);
-                        dustChart.data.datasets[0].data.push(element.dust);
+                        addDataToChart(tempChart, element.time, element.temperature);
+                        addDataToChart(humChart, element.time, element.humidity);
+                        addDataToChart(uvChart, element.time, element.uv);
+                        addDataToChart(gasChart, element.time, element.gas);
+                        addDataToChart(dustChart, element.time, element.dust);
+                        if (tempChart.data.labels.length > 30) {
+                            removeDataFromChart(tempChart);
+                        }
+                        if (humChart.data.labels.length > 30) {
+                            removeDataFromChart(humChart);
+                        }
+                        if (uvChart.data.labels.length > 30) {
+                            removeDataFromChart(uvChart);
+                        }
+                        if (gasChart.data.labels.length > 30) {
+                            removeDataFromChart(gasChart);
+                        }
+                        if (dustChart.data.labels.length > 30) {
+                            removeDataFromChart(dustChart);
+                        }
                     });
-                    tempChart.update();
-                    humChart.update();
-                    uvChart.update();
-                    gasChart.update();
-                    dustChart.update();
                 })
         }, 2000);
     </script>

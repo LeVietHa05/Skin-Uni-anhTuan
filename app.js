@@ -11,6 +11,35 @@ const server = http.createServer(app);
 const { Server } = require('socket.io');
 const PORT = process.env.PORT || 3000;
 
+let maxLength = 20;
+
+let environment = {
+  temp: [],
+  humi: [],
+  uv: [],
+  uvi: [],
+  co: [],
+  gas: [],
+  dust: [],
+}
+
+let median = {
+  temp: 0,
+  humi: 0,
+  uv: 0,
+  uvi: 0,
+  co: 0,
+  gas: 0,
+  dust: 0,
+  time: 0
+}
+
+function getMedian(arr) {
+  const mid = Math.floor(arr.length / 2),
+    nums = [...arr].sort((a, b) => a - b);
+  return arr.length % 2 !== 0 ? nums[mid] : (nums[mid - 1] + nums[mid]) / 2;
+}
+
 const io = new Server(server, {
   allowEIO3: true,
   cors: {
@@ -29,17 +58,20 @@ io.on('connection', (socket) => {
     //msg will look like this: {temperature: 30, humidity: 50, uv: 100, uvi: 10, co: 100, gas: 100, dust: 100}
 
     //save the msg to database for later use 
-    const environment = new Environment({
-      temperature: msg.temp,
-      humidity: msg.humi,
-      uv: msg.uv,
-      uvi: msg.uvi,
-      co: msg.co,
-      gas: msg.gas,
-      dust: msg.dust,
-    })
+    for (key in environment) {
+      environment[key].push(msg[key])
+      if (environment[key].length >= maxLength) {
+        median.key = getMedian(environment[key])
+        environment[key] = []
+        median.time = Date.now()
+      }
+    }
+
+    const envir = new Environment(median)
+
     try {
-      await environment.save();
+      await envir.save();
+      console.log('Data saved');
     } catch (error) {
       console.log(error);
     }
@@ -135,9 +167,9 @@ app.get("/analysis/", async function (req, res) {
 app.get("/analysis/getData", async function (req, res) {
   try {
     const environment = await Environment.find({})
-      .sort({ time: 1 })
-      .limit(20);
-    res.json(environment);
+      .sort({ time: -1 })
+      .limit(30);
+    res.json(environment.reverse());
   } catch (err) {
     console.log(err);
     res.json("error")

@@ -1,8 +1,8 @@
 const mongoose = require('mongoose');
 
 const environmentSchema = new mongoose.Schema({
-  temperature: String,
-  humidity: String,
+  temp: String,
+  humi: String,
   uv: String,
   uvi: String,
   co: String,
