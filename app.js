@@ -23,21 +23,12 @@ let environment = {
   dust: [],
 }
 
-let median = {
-  temp: 0,
-  humi: 0,
-  uv: 0,
-  uvi: 0,
-  co: 0,
-  gas: 0,
-  dust: 0,
-  time: 0
-}
-
-function getMedian(arr) {
-  const mid = Math.floor(arr.length / 2),
-    nums = [...arr].sort((a, b) => a - b);
-  return arr.length % 2 !== 0 ? nums[mid] : (nums[mid - 1] + nums[mid]) / 2;
+function getAverage(arr) {
+  let sum = 0
+  for (let i = 0; i < arr.length; i++) {
+    sum += parseFloat(arr[i], 10)
+  }
+  return sum / arr.length
 }
 
 const io = new Server(server, {
@@ -60,24 +51,36 @@ io.on('connection', (socket) => {
     //save the msg to database for later use 
     for (key in environment) {
       environment[key].push(msg[key])
-      if (environment[key].length >= maxLength) {
+      if (environment[key].length = maxLength) {
         median.key = getMedian(environment[key])
-        environment[key] = []
         median.time = Date.now()
       }
     }
 
-    const envir = new Environment(median)
-
-    try {
-      await envir.save();
-      console.log('Data saved');
-    } catch (error) {
-      console.log(error);
+    if (environment.temp.length = maxLength) {
+      const newEnvironment = new Environment({
+        temp: getAverage(environment.temp),
+        humi: getAverage(environment.humi),
+        uv: getAverage(environment.uv),
+        uvi: getAverage(environment.uvi),
+        co: getAverage(environment.co),
+        gas: getAverage(environment.gas),
+        dust: getAverage(environment.dust),
+        time: Date.now()
+      });
+      for (key in environment) {
+        environment[key] = [];
+      }
+      try {
+        await newEnvironment.save();
+        console.log("saved")
+      } catch (error) {
+        console.error(error);
+      }
     }
 
     //emit the data to all clients on topic /web/data
-    socket.broadcast.emit('/web/data', environment);
+    // socket.broadcast.emit('/web/data', environment);
   });
   socket.on('disconnect', () => {
     console.log('user disconnected');
