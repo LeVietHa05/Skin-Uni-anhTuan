@@ -179,6 +179,18 @@ app.get("/analysis/getData", async function (req, res) {
   }
 })
 
+app.get("/analysis/getLastestData", async function (req, res) {
+  try {
+    const environment = await Environment.find({})
+      .sort({ time: -1 })
+      .limit(1);
+    res.json(environment);
+  } catch (err) {
+    console.log(err);
+    res.json("error")
+  }
+})
+
 app.get("*", function (req, res) {
   res.render("404.ejs")
 })

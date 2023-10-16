@@ -106,6 +106,35 @@
     <script>
 
         setTimeout(function () {
+            setInterval(function () {
+                fetch("/analysis/getLastestData")
+                .then (response => response.json())
+                .then (data => {
+                    if (data != "error") {
+                        console.log(data);
+                        addDataToChart(tempChart, data.time, data.temperature);
+                        addDataToChart(humChart, data.time, data.humidity); 
+                        addDataToChart(uvChart, data.time, data.uv);
+                        addDataToChart(gasChart, data.time, data.gas);
+                        addDataToChart(dustChart, data.time, data.dust);
+                        if (tempChart.data.labels.length > 30) {
+                            removeDataFromChart(tempChart);
+                        }
+                        if (humChart.data.labels.length > 30) {
+                            removeDataFromChart(humChart);
+                        }
+                        if (uvChart.data.labels.length > 30) {
+                            removeDataFromChart(uvChart);
+                        }
+                        if (gasChart.data.labels.length > 30) {
+                            removeDataFromChart(gasChart);
+                        }
+                        if (dustChart.data.labels.length > 30) {
+                            removeDataFromChart(dustChart);
+                        }
+                    }
+                })
+            },60000)
             fetch("/analysis/getData")
                 .then(response => response.json())
                 .then(data => {
@@ -133,6 +162,7 @@
                         }
                     });
                 })
-        }, 2000);
+        },5000);
+
     </script>
     <%- include ("partials/footer.ejs") %>
